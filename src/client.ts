@@ -1,12 +1,14 @@
 import { dependencies } from "./dependencies.ts";
 import { UnknownApiError } from "./errors.ts";
 import {
+  ModelCheckAccountTransaction,
   ModelCommunicationWay,
   ModelContact,
   ModelDocument,
   ModelDocumentFolder,
   ModelInvoice,
   ModelUnity,
+  ModelVoucher,
 } from "./interfaces.ts";
 import { SevDeskUrls } from "./urls.ts";
 
@@ -201,7 +203,7 @@ export class SevDeskClient {
   async getVouchers(params: UrlParamsFor<"apiGetVouchersUrl"> = {}) {
     const url = this.urls.apiGetVouchersUrl(params);
 
-    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+    return await this.request<{ objects: Array<Required<ModelVoucher>> }>(url, {
       method: "GET",
     });
   }
@@ -222,6 +224,30 @@ export class SevDeskClient {
 
     return await this.request<
       { objects: Array<Required<ModelCommunicationWay>> }
+    >(
+      url,
+      {
+        method: "GET",
+      },
+    );
+  }
+
+  // -------------------------------------------------------
+  // CheckAccountTransaction
+  // -------------------------------------------------------
+
+  /**
+   * Get an overview of all check account transactions
+   *
+   * @see https://my.sevdesk.de/swaggerUI/index.html#/CheckAccountTransaction
+   */
+  async getCheckAccountTransactions(
+    params: UrlParamsFor<"apiGetCheckAccountTransactionUrl"> = {},
+  ) {
+    const url = this.urls.apiGetCheckAccountTransactionUrl(params);
+
+    return await this.request<
+      { objects: Array<Required<ModelCheckAccountTransaction>> }
     >(
       url,
       {

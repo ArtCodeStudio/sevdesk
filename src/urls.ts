@@ -122,6 +122,19 @@ export class SevDeskUrls {
   }
 
   // -------------------------------------------------------
+  // CheckAccountTransaction
+  // -------------------------------------------------------
+
+  apiGetCheckAccountTransactionUrl({
+    ...query
+  }: DefaultCollectionQuery & Query = {}) {
+    return this.apiUrl({
+      path: `CheckAccountTransaction`,
+      query,
+    });
+  }
+
+  // -------------------------------------------------------
   // Unity
   // -------------------------------------------------------
 
