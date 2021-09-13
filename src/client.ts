@@ -1,6 +1,5 @@
-import NodeFormData from "form-data";
-import { dependencies } from "./dependencies.js";
-import { UnknownApiError } from "./errors.js";
+import { dependencies } from "./dependencies.ts";
+import { UnknownApiError } from "./errors.ts";
 import {
   ModelCommunicationWay,
   ModelContact,
@@ -8,8 +7,8 @@ import {
   ModelDocumentFolder,
   ModelInvoice,
   ModelUnity,
-} from "./interfaces.js";
-import { SevDeskUrls } from "./urls.js";
+} from "./interfaces.ts";
+import { SevDeskUrls } from "./urls.ts";
 
 const DEFAULT_BASE_URL = "https://my.sevdesk.de/";
 
@@ -83,7 +82,7 @@ export class SevDeskClient {
   async getInvoices(params: UrlParamsFor<"apiGetInvoicesUrl"> = {}) {
     const url = this.urls.apiGetInvoicesUrl(params);
 
-    return this.request<{
+    return await this.request<{
       objects: Array<Required<ModelInvoice>>;
     }>(url, { method: "GET" });
   }
@@ -94,7 +93,7 @@ export class SevDeskClient {
   async getInvoice(params: UrlParamsFor<"apiGetInvoiceUrl">) {
     const url = this.urls.apiGetInvoiceUrl(params);
 
-    return this.request<{
+    return await this.request<{
       objects: [Required<ModelInvoice>];
     }>(url, { method: "GET" });
   }
@@ -103,11 +102,11 @@ export class SevDeskClient {
    * Get the next invoice number
    */
   async getNextInvoiceNumber(
-    params: UrlParamsFor<"apiGetNextInvoiceNumberUrl">
+    params: UrlParamsFor<"apiGetNextInvoiceNumberUrl">,
   ) {
     const url = this.urls.apiGetNextInvoiceNumberUrl(params);
 
-    return this.request<{
+    return await this.request<{
       objects: string;
     }>(url, { method: "GET" });
   }
@@ -122,11 +121,11 @@ export class SevDeskClient {
    * @see https://my.sevdesk.de/swaggerUI/index.html#/DocumentFolder/getDocumentFolders
    */
   async getDocumentFolders(
-    params: UrlParamsFor<"apiGetDocumentFoldersUrl"> = {}
+    params: UrlParamsFor<"apiGetDocumentFoldersUrl"> = {},
   ) {
     const url = this.urls.apiGetDocumentFoldersUrl(params);
 
-    return this.request<{
+    return await this.request<{
       objects: Array<Required<ModelDocumentFolder>>;
     }>(url, { method: "GET" });
   }
@@ -143,9 +142,12 @@ export class SevDeskClient {
   async getDocuments(params: UrlParamsFor<"apiGetDocumentsUrl"> = {}) {
     const url = this.urls.apiGetDocumentsUrl(params);
 
-    return this.request<{ objects: Array<Required<ModelDocument>> }>(url, {
-      method: "GET",
-    });
+    return await this.request<{ objects: Array<Required<ModelDocument>> }>(
+      url,
+      {
+        method: "GET",
+      },
+    );
   }
 
   /**
@@ -157,16 +159,14 @@ export class SevDeskClient {
     file,
     ...query
   }: UrlParamsFor<"apiFileUploadUrl"> & {
-    file:
-      | Parameters<FormData["append"]>[1]
-      | Parameters<NodeFormData["append"]>[1];
+    file: Parameters<FormData["append"]>[1];
   }) {
     const url = this.urls.apiFileUploadUrl(query);
     const form = new dependencies.FormData();
 
     form.append("files", file);
 
-    return this.request<{ objects: [Required<ModelDocument>] }>(url, {
+    return await this.request<{ objects: [Required<ModelDocument>] }>(url, {
       method: "POST",
       body: form,
     });
@@ -184,7 +184,24 @@ export class SevDeskClient {
   async getContacts(params: UrlParamsFor<"apiGetContactsUrl"> = {}) {
     const url = this.urls.apiGetContactsUrl(params);
 
-    return this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+      method: "GET",
+    });
+  }
+
+  // -------------------------------------------------------
+  // Voucher
+  // -------------------------------------------------------
+
+  /**
+   * Get an overview of all vouchers
+   *
+   * @see https://my.sevdesk.de/swaggerUI/index.html#/Voucher/getVouchers
+   */
+  async getVouchers(params: UrlParamsFor<"apiGetVouchersUrl"> = {}) {
+    const url = this.urls.apiGetVouchersUrl(params);
+
+    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
       method: "GET",
     });
   }
@@ -199,15 +216,17 @@ export class SevDeskClient {
    * @see https://my.sevdesk.de/swaggerUI/index.html#/CommunicationWay/getCommunicationWays
    */
   async getCommunicationWays(
-    params: UrlParamsFor<"apiGetCommunicationWaysUrl"> = {}
+    params: UrlParamsFor<"apiGetCommunicationWaysUrl"> = {},
   ) {
     const url = this.urls.apiGetCommunicationWaysUrl(params);
 
-    return this.request<{ objects: Array<Required<ModelCommunicationWay>> }>(
+    return await this.request<
+      { objects: Array<Required<ModelCommunicationWay>> }
+    >(
       url,
       {
         method: "GET",
-      }
+      },
     );
   }
 
@@ -223,7 +242,7 @@ export class SevDeskClient {
   async getUnities(params: UrlParamsFor<"apiGetUnitiesUrl"> = {}) {
     const url = this.urls.apiGetUnitiesUrl(params);
 
-    return this.request<{ objects: Array<Required<ModelUnity>> }>(url, {
+    return await this.request<{ objects: Array<Required<ModelUnity>> }>(url, {
       method: "GET",
     });
   }

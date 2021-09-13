@@ -11,5 +11,5 @@
  * Do not edit the file manually.
  */
 
-export * from "./api.js";
-export * from "./configuration.js";
+export * from "./api.ts";
+export * from "./configuration.ts";

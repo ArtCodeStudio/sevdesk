@@ -98,6 +98,17 @@ export class SevDeskUrls {
   }
 
   // -------------------------------------------------------
+  // Voucher
+  // -------------------------------------------------------
+
+  apiGetVouchersUrl({ ...query }: DefaultCollectionQuery & Query = {}) {
+    return this.apiUrl({
+      path: `Voucher`,
+      query,
+    });
+  }
+
+  // -------------------------------------------------------
   // CommunicationWay
   // -------------------------------------------------------
 

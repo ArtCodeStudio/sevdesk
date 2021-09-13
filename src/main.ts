@@ -1,3 +1,3 @@
-export { SevDeskClient } from "./client.js";
-export { SevDeskUrls } from "./urls.js";
-export type { SevDeskClientConfig } from "./client.js";
+export { SevDeskClient } from "./client.ts";
+export { SevDeskUrls } from "./urls.ts";
+export type { SevDeskClientConfig } from "./client.ts";
