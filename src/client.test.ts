@@ -1,9 +1,9 @@
-import "./tests/setup.js";
+import "./tests/setup.ts";
 import * as fs from "fs";
 import { test } from "uvu";
 import * as assert from "uvu/assert";
-import { SevDeskClient } from "./client.js";
-import * as env from "./tests/env.js";
+import { SevDeskClient } from "./client.ts";
+import * as env from "./tests/env.ts";
 import {
   ModelCommunicationWay,
   ModelContact,
@@ -11,7 +11,7 @@ import {
   ModelDocumentFolder,
   ModelInvoice,
   ModelUnity,
-} from "./interfaces.js";
+} from "./interfaces/index.ts";
 
 let sevDeskClient: SevDeskClient;
 
@@ -37,8 +37,8 @@ test("Get invoices", async () => {
 });
 
 test("Get next invoice number", async () => {
-  const { objects: nextInvoiceNumber } =
-    await sevDeskClient.getNextInvoiceNumber({
+  const { objects: nextInvoiceNumber } = await sevDeskClient
+    .getNextInvoiceNumber({
       invoiceType: "RE",
       useNextNumber: false,
     });
@@ -79,8 +79,8 @@ test("Get contacts", async () => {
 });
 
 test("Get communication ways", async () => {
-  const { objects: communicationWays } =
-    await sevDeskClient.getCommunicationWays();
+  const { objects: communicationWays } = await sevDeskClient
+    .getCommunicationWays();
 
   assert.is(communicationWays.length > 0, true);
   communicationWays.forEach(assertIsCommunicationWay);
@@ -109,7 +109,9 @@ const assertIsContact = (contact: ModelContact) => {
   assert.is(contact.objectName, "Contact");
 };
 
-const assertIsCommunicationWay = (communicationWay: ModelCommunicationWay) => {
+const assertIsCommunicationWay = (
+  communicationWay: ModelCommunicationWay.ModelCommunicationWay,
+) => {
   assert.is(communicationWay.objectName, "CommunicationWay");
 };
 

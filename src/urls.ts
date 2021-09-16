@@ -1,12 +1,7 @@
 const DEFAULT_BASE_URL = "https://my.sevdesk.de/";
 
-type Query = Record<string, any>;
-
-type DefaultCollectionQuery = {
-  limit?: number;
-  offset?: number;
-  embed?: Array<string>;
-};
+import { DefaultCollectionQuery, Query } from "./queries.ts";
+import { ModelInvoice } from "./interfaces/index.ts";
 
 export class SevDeskUrls {
   constructor(private baseUrl = DEFAULT_BASE_URL) {}
@@ -51,7 +46,7 @@ export class SevDeskUrls {
     return this.apiUrl({ path: `Invoice/Factory/getNextInvoiceNumber`, query });
   }
 
-  apiSaveInvoiceUrl({ ...query }: Query = {}) {
+  apiSaveInvoiceUrl({ ...query }: ModelInvoice.Factory) {
     return this.apiUrl({ path: `Invoice/Factory/saveInvoice`, query });
   }
 

@@ -9,7 +9,7 @@ import {
   ModelInvoice,
   ModelUnity,
   ModelVoucher,
-} from "./interfaces.ts";
+} from "./interfaces/index.ts";
 import { SevDeskUrls } from "./urls.ts";
 
 const DEFAULT_BASE_URL = "https://my.sevdesk.de/";
@@ -85,7 +85,7 @@ export class SevDeskClient {
     const url = this.urls.apiGetInvoicesUrl(params);
 
     return await this.request<{
-      objects: Array<Required<ModelInvoice>>;
+      objects: Array<Required<ModelInvoice.ModelInvoice>>;
     }>(url, { method: "GET" });
   }
 
@@ -96,7 +96,7 @@ export class SevDeskClient {
     const url = this.urls.apiGetInvoiceUrl(params);
 
     return await this.request<{
-      objects: [Required<ModelInvoice>];
+      objects: [Required<ModelInvoice.ModelInvoice>];
     }>(url, { method: "GET" });
   }
 
@@ -111,6 +111,20 @@ export class SevDeskClient {
     return await this.request<{
       objects: string;
     }>(url, { method: "GET" });
+  }
+
+  /**
+   * Create a new invoice (with / without invoice positions and discounts).
+   *
+   * @see https://my.sevdesk.de/swaggerUI/index.html#/Invoice/saveInvoice
+   * @see https://my.sevdesk.de/api/InvoiceAPI/doc.html#operation/createInvoiceByFactory
+   */
+  async saveInvoice(params: UrlParamsFor<"apiSaveInvoiceUrl">) {
+    const url = this.urls.apiSaveInvoiceUrl(params);
+
+    return await this.request<{
+      objects: Array<Required<ModelInvoice.ModelInvoice>>;
+    }>(url, { method: "POST" });
   }
 
   // -------------------------------------------------------
@@ -223,7 +237,7 @@ export class SevDeskClient {
     const url = this.urls.apiGetCommunicationWaysUrl(params);
 
     return await this.request<
-      { objects: Array<Required<ModelCommunicationWay>> }
+      { objects: Array<Required<ModelCommunicationWay.ModelCommunicationWay>> }
     >(
       url,
       {
