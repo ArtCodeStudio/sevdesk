@@ -85,7 +85,7 @@ export class SevDeskClient {
     const url = this.urls.apiGetInvoicesUrl(params);
 
     return await this.request<{
-      objects: Array<Required<ModelInvoice.ModelInvoice>>;
+      objects: Array<Required<ModelInvoice.Invoice>>;
     }>(url, { method: "GET" });
   }
 
@@ -96,7 +96,7 @@ export class SevDeskClient {
     const url = this.urls.apiGetInvoiceUrl(params);
 
     return await this.request<{
-      objects: [Required<ModelInvoice.ModelInvoice>];
+      objects: [Required<ModelInvoice.Invoice>];
     }>(url, { method: "GET" });
   }
 
@@ -119,12 +119,21 @@ export class SevDeskClient {
    * @see https://my.sevdesk.de/swaggerUI/index.html#/Invoice/saveInvoice
    * @see https://my.sevdesk.de/api/InvoiceAPI/doc.html#operation/createInvoiceByFactory
    */
-  async saveInvoice(params: UrlParamsFor<"apiSaveInvoiceUrl">) {
+  async saveInvoice(
+    params: UrlParamsFor<"apiSaveInvoiceUrl">,
+    data: ModelInvoice.Factory,
+  ) {
     const url = this.urls.apiSaveInvoiceUrl(params);
 
+    console.debug("url", url);
+
     return await this.request<{
-      objects: Array<Required<ModelInvoice.ModelInvoice>>;
-    }>(url, { method: "POST" });
+      objects: Array<ModelInvoice.Factory>;
+    }>(url, {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   }
 
   // -------------------------------------------------------
@@ -199,6 +208,42 @@ export class SevDeskClient {
    */
   async getContacts(params: UrlParamsFor<"apiGetContactsUrl"> = {}) {
     const url = this.urls.apiGetContactsUrl(params);
+
+    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+      method: "GET",
+    });
+  }
+
+  // -------------------------------------------------------
+  // Accounting Contact
+  // -------------------------------------------------------
+
+  /**
+   * Get an overview of all accounting contacts
+   *
+   * @see https://my.sevdesk.de/swaggerUI/index.html#/AccountingContact/getAccountingContacts
+   */
+  async getAccountingContacts(
+    params: UrlParamsFor<"apiGetAccountingContactsUrl"> = {},
+  ) {
+    const url = this.urls.apiGetAccountingContactsUrl(params);
+
+    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+      method: "GET",
+    });
+  }
+
+  // -------------------------------------------------------
+  // SevUser
+  // -------------------------------------------------------
+
+  /**
+   * Get an overview of your sevUser
+   *
+   * @see https://my.sevdesk.de/swaggerUI/index.html#/SevUser/getSevUser
+   */
+  async getSevUsers(params: UrlParamsFor<"apiGetSevUsersUrl"> = {}) {
+    const url = this.urls.apiGetSevUsersUrl(params);
 
     return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
       method: "GET",

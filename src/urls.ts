@@ -46,7 +46,7 @@ export class SevDeskUrls {
     return this.apiUrl({ path: `Invoice/Factory/getNextInvoiceNumber`, query });
   }
 
-  apiSaveInvoiceUrl({ ...query }: ModelInvoice.Factory) {
+  apiSaveInvoiceUrl({ ...query }: Query) {
     return this.apiUrl({ path: `Invoice/Factory/saveInvoice`, query });
   }
 
@@ -88,6 +88,30 @@ export class SevDeskUrls {
   apiGetContactsUrl({ ...query }: DefaultCollectionQuery & Query = {}) {
     return this.apiUrl({
       path: `Contact`,
+      query,
+    });
+  }
+
+  // -------------------------------------------------------
+  // AccountingContact
+  // -------------------------------------------------------
+
+  apiGetAccountingContactsUrl(
+    { ...query }: DefaultCollectionQuery & Query = {},
+  ) {
+    return this.apiUrl({
+      path: `AccountingContact`,
+      query,
+    });
+  }
+
+  // -------------------------------------------------------
+  // Contact
+  // -------------------------------------------------------
+
+  apiGetSevUsersUrl({ ...query }: DefaultCollectionQuery & Query = {}) {
+    return this.apiUrl({
+      path: `SevUser`,
       query,
     });
   }

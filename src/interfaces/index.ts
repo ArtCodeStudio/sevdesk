@@ -1075,7 +1075,7 @@ export interface ModelCheckAccountTransactionLog {
  * @interface ModelContact
  */
 export interface ModelContact {
-  id?: string;
+  id?: number;
   objectName?: "Contact";
   /**
    *
@@ -1423,57 +1423,57 @@ export interface ModelCurrencyExchangeRate {
 /**
  *
  * @export
- * @interface ModelDiscounts
+ * @interface Discounts
  */
-export interface ModelDiscounts {
+export interface Discounts {
   id?: string;
   objectName?: "Discounts";
   /**
    * date the discount was created
    * @type {Date}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   create?: Date;
   /**
    * date the discount was last updated
    * @type {Date}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   update?: Date;
   /**
    * object to which the discount belongs
    * @type {any}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   object?: any;
   /**
    * sevClient is the unique id every customer has and is used in nearly all operations
    * @type {any}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   sevClient?: any;
   /**
    * specifies if a discount is enabled
    * @type {boolean}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   discount?: boolean;
   /**
    * description of the discount
    * @type {string}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   text?: string;
   /**
    * specifies if discount is of type percentage, otherwise its a value
    * @type {boolean}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   percentage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof ModelDiscounts
+   * @memberof Discounts
    */
   value?: number;
 }
@@ -1757,7 +1757,7 @@ export interface ModelEmail {
    * @type {ModelInvoice}
    * @memberof ModelEmail
    */
-  object?: ModelInvoice.ModelInvoice;
+  object?: ModelInvoice.Invoice;
   /**
    * sender of the email
    * @type {string}
@@ -3121,7 +3121,7 @@ export interface ModelSevSequence {
  * @interface ModelSevUser
  */
 export interface ModelSevUser {
-  id?: string;
+  id?: number;
   objectName?: "SevUser";
   /**
    * This information is not visible for you
@@ -3695,7 +3695,7 @@ export interface ModelTaxSet {
  * @interface ModelUnity
  */
 export interface ModelUnity {
-  id?: string;
+  id?: number;
   objectName?: "Unity";
   /**
    * the date the unity was created
