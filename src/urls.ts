@@ -1,7 +1,6 @@
 const DEFAULT_BASE_URL = "https://my.sevdesk.de/";
 
 import { DefaultCollectionQuery, Query } from "./queries.ts";
-import { ModelInvoice } from "./interfaces/index.ts";
 
 export class SevDeskUrls {
   constructor(private baseUrl = DEFAULT_BASE_URL) {}
@@ -88,6 +87,13 @@ export class SevDeskUrls {
   apiGetContactsUrl({ ...query }: DefaultCollectionQuery & Query = {}) {
     return this.apiUrl({
       path: `Contact`,
+      query,
+    });
+  }
+
+  apiGetContactUrl({ id, ...query }: { id: string } & Query) {
+    return this.apiUrl({
+      path: `Contact/${id}`,
       query,
     });
   }

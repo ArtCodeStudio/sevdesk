@@ -118,6 +118,7 @@ export class SevDeskClient {
    *
    * @see https://my.sevdesk.de/swaggerUI/index.html#/Invoice/saveInvoice
    * @see https://my.sevdesk.de/api/InvoiceAPI/doc.html#operation/createInvoiceByFactory
+   * @see https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-invoices
    */
   async saveInvoice(
     params: UrlParamsFor<"apiSaveInvoiceUrl">,
@@ -208,6 +209,19 @@ export class SevDeskClient {
    */
   async getContacts(params: UrlParamsFor<"apiGetContactsUrl"> = {}) {
     const url = this.urls.apiGetContactsUrl(params);
+
+    return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
+      method: "GET",
+    });
+  }
+
+  /**
+   * Get an contact by id
+   *
+   * @see https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-dataOperations#retrievingData
+   */
+   async getContact(params: UrlParamsFor<"apiGetContactUrl">) {
+    const url = this.urls.apiGetContactUrl(params);
 
     return await this.request<{ objects: Array<Required<ModelContact>> }>(url, {
       method: "GET",

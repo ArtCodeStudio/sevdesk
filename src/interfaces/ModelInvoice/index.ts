@@ -54,7 +54,7 @@ export interface Invoice {
   /**
    * time left for paying the invoice, use format dd.MM.yyyy or number for number of days left
    */
-  timeToPay?: Date | null;
+  timeToPay?: number | Date | null;
   /**
    * If a value other than zero is used for the discount attribute, you need to specify the amount of days for which the discount is granted.
    */
@@ -89,7 +89,7 @@ export interface Invoice {
    */
   addressCountry?: ModelStaticCountry | null;
   /**
-   * time left for paying the invoice, use format DD.MM.YYYY or number for number of days left
+   * The date the end-customer has payed the invoice. 
    */
   payDate?: Date | null;
   /**
